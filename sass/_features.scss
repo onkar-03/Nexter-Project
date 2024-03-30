@@ -1,0 +1,41 @@
+.features {
+  grid-column: center-start / center-end;
+  margin: 15rem 0;
+
+  display: grid;
+  // grid-template-columns: repeat(3, 1fr);
+
+  //Responsive column code
+  // We want the Columns to be minimum 250 px
+  // Also we want auto-fit means : Fits as many tracks as possible in the container
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 6rem;
+
+  // As different features have different amount of feature text .. for features with lesser content we can see a lot of gap between heading and
+  // This is due to align-items default value set to stretch
+  // To make them Fit as per content and moving them at the top of column each of them
+  align-items: start;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  row-gap: 1.5rem;
+  column-gap: 2.5rem;
+  &__text {
+    font-size: 1.7rem;
+  }
+
+  &__icon {
+    fill: $color-primary;
+    width: 4.5rem;
+    height: 4.5rem;
+
+    //when we dont define grid then using -1 to go till the end doesn't work for rows as -1 is for the explicitly defined grid
+    // As we didn't define the Explicit rows in the grid feature hence the span for rows using -1 wont work
+    grid-row: 1 / span 2;
+
+    // Moving Icons a bit to the top
+    transform: translateY(-1rem);
+  }
+}

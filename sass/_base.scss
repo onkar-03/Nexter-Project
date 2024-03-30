@@ -1,0 +1,102 @@
+// SasS COLOR VARIABLES
+$color-primary: #c69963;
+$color-primary-dark: #b28451;
+
+$color-secondary: #101d2c;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+
+$color-grey-dark-1: #54483a;
+$color-grey-dark-2: #6d5d4b;
+
+// FONT VARIABLES
+$font-primary: 'Nunito', sans-serif;
+$font-display: 'Josefin Sans', sans-serif;
+
+//MEDIA QUERY VARIABLES
+$bp-largest: 75em; // 1200px
+$bp-large: 62.5em; // 1000px
+$bp-medium: 50em; // 800px;
+$bp-small: 37.5em; // 600px;
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+
+  // Default font-size: 16px
+  // font-size: 10px;
+  // 10px / 16px = 0.625 = 62.5%;
+  // Percentage of User Browser font-size setting
+  font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%; // 1rem = 8px font size
+  }
+}
+
+body {
+  font-family: $font-primary;
+  color: $color-grey-dark-2;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.container {
+  display: grid;
+
+  //min-content : represents the smallest size a grid item can be while still fitting its content.
+
+  // Total Rows : 6
+  // First Row : is relative to viewport height
+  // Third Row : is relative to viewport width and
+  // Rest of the rows we want the row to be of the minimum width fitting the content it has to hold
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+
+  //Very common in grid systems to use a 8 / 12/ 16 Columns predefined system
+  // Lets go with a 8 column Design
+  // We want them to have a fixed width so 1140px / 8 = 142.5px
+  // Setting it up using minmax saying : Either it has the minimum content width or max 142.5px for each column
+  // Separate 8rem sidebar column
+  // Center trick : Centered the 8 Columns using 1fr columns on each side of them Trick
+  // If we did not had the fixed sidebar we could have used the margin: auto; trick
+  // Gave names to Grid lines
+  // The Centering Columns on each side we wan them to be minimum 60pixels if screen size reduces
+  grid-template-columns:
+    [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr)
+    [center-start]repeat(8, [col-start] minmax(min-content, 14.25rem) [col-end])
+    [center-end] minmax(6rem, 1fr)
+    [full-end];
+
+  @media only screen and (max-width: $bp-large) {
+    //Removed a column of the sidebar
+    // Added a new row of 6rem 6*8 = 48px
+    grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+
+    grid-template-columns:
+      [full-start] minmax(6rem, 1fr)
+      [center-start]repeat(
+        8,
+        [col-start] minmax(min-content, 14.25rem) [col-end]
+      )
+      [center-end] minmax(6rem, 1fr)
+      [full-end];
+    // 1rem = 8px font size
+  }
+
+  @media only screen and (max-width: $bp-medium) {
+    //Setting up the header to take the whole viewport width except the sidebar width on teh screen using calc() function
+    // Also we want the Realtors section to be a new row of min-content
+    // Also as we shifted the story section content above the image we want the row now to be of min-content and not 40vw
+    grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content min-content repeat(
+        3,
+        min-content
+      );
+  }
+}

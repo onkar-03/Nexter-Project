@@ -1,0 +1,93 @@
+.header {
+  background-color: $color-grey-dark-1;
+  grid-column: full-start / col-end 6;
+
+  //Extending the Header across full width
+  @media only screen and (max-width: $bp-medium) {
+    // grid-column: 1 / -1;
+    grid-column: full-start / full-end;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    padding: 5rem;
+  }
+
+  //Adding the Background image and gradient
+  background-image: linear-gradient(
+      rgba($color-secondary, 0.93),
+      rgba($color-secondary, 0.93)
+    ),
+    url(../img/hero.jpeg);
+  background-size: cover;
+  background-position: center;
+  padding: 8rem;
+  padding-top: 4rem;
+
+  //Using Grid Aligning the Items
+  display: grid;
+
+  //Base row declaration we have the first row to be 80vh
+  // Hence by giving 1fr the first row automatically takes the 80vh size
+  // minmax used for responsive rows the third one stating amx to be 6 and min to be min-content
+  grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr;
+
+  //Declaring columns to have the maximum size it can have to fit the content
+  // Using minmax to make responsive layout
+  // Minimum images just so they fit it
+  // Maximum to place the content at the maximum width
+  grid-template-columns: minmax(min-content, max-content);
+
+  row-gap: 1.5rem;
+  justify-content: center;
+
+  &__logo {
+    height: 3rem;
+    justify-self: center;
+  }
+
+  &__btn {
+    align-self: start;
+    justify-self: start;
+  }
+
+  &__seenon-text {
+    //Even text can be treated as a grid item
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+
+    column-gap: 1.5rem;
+    align-items: center;
+
+    font-size: 1.6rem;
+    color: $color-grey-light-2;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background-color: currentColor;
+    }
+  }
+
+  &__seenon-logos {
+    //Placing Images / Logo suing grid
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    justify-items: center;
+    margin-top: 1rem;
+
+    //Align Individual Items
+    align-items: center;
+
+    img {
+      //Using max-height to make it responsive
+      max-height: 2.5rem;
+      max-width: 100%;
+
+      //Slightly Darken the Images
+      filter: brightness(70%);
+    }
+  }
+}
